@@ -2,6 +2,7 @@
 const todoInput = document.querySelector('.todo-input');
 const todoList = document.querySelector('.todo-list');
 const todoBtn = document.querySelector('.todo-button');
+const todoInfo = document.querySelector('.todo-info');
 
 // adding event listener into the button
 todoBtn.addEventListener('click', function (event) {
@@ -45,7 +46,7 @@ todoBtn.addEventListener('click', function (event) {
     todoList.appendChild(todoDiv);
     }
     todoInput.value = '';  
-
+    checkTodoInfo();
 });
 
 
@@ -57,19 +58,26 @@ todoList.addEventListener('click', function(event){
         todoDiv.className += ' completed';
         // todoDiv.ClassList.add('complited');
         ClickEl.remove();
-    }
-});
-
-todoList.addEventListener('click', function(event){
-    const ClickEl = event.target;
-    
-    if (ClickEl.className == 'trash') {
+    }else if (ClickEl.className == 'trash') {
         const todoDiv = ClickEl.parentNode;
         todoDiv.className += ' drop-effect';
         // todoDiv.ClassList.add('complited');
         todoDiv.addEventListener('transitionend', function() {
             todoDiv.remove();
+            checkTodoInfo();
         });
+    }else if (ClickEl.className == 'edit') {
+        const todoDiv = ClickEl.parentNode;
+        console.log(todoDiv);
     }
 });
 
+
+function checkTodoInfo() {
+    if (todoList.children.length == 0) {
+        todoInfo.style.display = 'block';
+    } else {
+        todoInfo.style.display = 'none';
+    }
+}
+checkTodoInfo();
