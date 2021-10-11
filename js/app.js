@@ -30,6 +30,12 @@ todoBtn.addEventListener('click', function (event) {
     li.innerText = userInput;
     todoDiv.appendChild(li);
 
+    // edit button
+    const edit = document.createElement('button');
+    edit.className = 'edit';
+    edit.innerHTML = '<i class="fas fa-edit"></i>';
+    todoDiv.appendChild(edit);
+
     // creating check button
     const check = document.createElement('button');
     check.className = 'check';
@@ -68,7 +74,27 @@ todoList.addEventListener('click', function(event){
         });
     }else if (ClickEl.className == 'edit') {
         const todoDiv = ClickEl.parentNode;
-        console.log(todoDiv);
+        // console.dir(todoDiv);
+        const firstChild = todoDiv.children[0];
+        const input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'form-input'
+        input.value = firstChild.innerText;
+        todoDiv.insertBefore(input, firstChild);
+        firstChild.remove();
+        ClickEl.innerHTML = '<i class="far fa-save"></i>';
+        ClickEl.className = 'save';
+    }else if (ClickEl.className == 'save') {
+        const todoDiv = ClickEl.parentNode;
+        const firstChild = todoDiv.children[0];
+        const li = document.createElement('li');
+        li.innerText = firstChild.value;
+        li.className = 'todo-item';
+        todoDiv.insertBefore(li, firstChild);
+        firstChild.remove();
+        ClickEl.innerHTML = '<i class="far fa-edit"></i>';
+        ClickEl.className = 'edit';
+
     }
 });
 
